@@ -455,7 +455,10 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"4aleK":[function(require,module,exports) {
-console.log("hola mundo");
+function main() {
+    console.log("Hola mundo");
+}
+main();
 
 },{}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
 
