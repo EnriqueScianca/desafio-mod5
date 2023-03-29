@@ -455,10 +455,37 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"4aleK":[function(require,module,exports) {
+var _welcome = require("./Components/welcome");
 function main() {
     console.log("Hola mundo");
 }
 main();
+
+},{"./Components/welcome":"6g59z"}],"6g59z":[function(require,module,exports) {
+customElements.define("welcome-page", class extends HTMLElement {
+    constructor(){
+        super();
+        this.shadow = this.attachShadow({
+            mode: "open"
+        });
+    }
+    connectedCallback() {
+        // *TODO: Aca creo que va la accion de que hace cuando hacemos click en empezar.
+        const style = document.createElement("style");
+        style.innerHTML = `\n      .welcome-title{\n        font-family: 'Odibee Sans', cursive;\n        color: #009048;\n        font-size: 80px;\n      }\n\n      .welcome-button{\n        font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n      }\n\n      //*TODO: Agregamos los estilos del div\n      `;
+        this.shadow.appendChild(style);
+        this.render();
+    }
+    render() {
+        const div = document.createElement("div");
+        div.innerHTML = `\n      <div class= "welcome">\n        <h1 class="welcome-title">Piedra Papel ó Tijera</h1>\n        <button class="welcome-button">Empezar</button>\n      </div>\n\n      <div class= "welcome-hands">\n        <img class="hands" src="./" >\n        <img class="hands" src="./" >\n        <img class="hands" src="./" >\n      </div>\n      \n        `;
+        const button = document.querySelector(".welcome-button");
+        button?.addEventListener("click", (e)=>{
+            console.log("Componente Welcome funcionando");
+        });
+        this.shadow.appendChild(div);
+    }
+});
 
 },{}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
 
