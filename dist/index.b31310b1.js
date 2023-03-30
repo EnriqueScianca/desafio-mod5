@@ -472,21 +472,71 @@ customElements.define("welcome-page", class extends HTMLElement {
     connectedCallback() {
         // *TODO: Aca creo que va la accion de que hace cuando hacemos click en empezar.
         const style = document.createElement("style");
-        style.innerHTML = `\n      .welcome-title{\n        font-family: 'Odibee Sans', cursive;\n        color: #009048;\n        font-size: 80px;\n      }\n\n      .welcome-button{\n        font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n      }\n\n      //*TODO: Agregamos los estilos del div\n      `;
+        style.innerHTML = `\n\n      .welcome{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n      }\n      \n      .welcome-title{\n        font-family: 'Odibee Sans', cursive;\n        color: #009048;\n        font-size: 80px;\n        text-align: center;\n        padding: 40px;\n        margin: 0px;\n      }\n\n      .welcome-button{\n        font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n      }\n\n      // .welcome-hands{\n      //   position: fixed;\n      //   bottom: -26px;\n      //   margin-left: 12%\n      // }\n\n      .welcome-hands{\n        position: absolute;\n        left: 13%;\n        right: 0%;\n        top: 82%;\n      }\n\n      //*TODO: Agregamos los estilos del div\n      `;
         this.shadow.appendChild(style);
         this.render();
     }
     render() {
         const div = document.createElement("div");
-        div.innerHTML = `\n      <div class= "welcome">\n        <h1 class="welcome-title">Piedra Papel ó Tijera</h1>\n        <button class="welcome-button">Empezar</button>\n      </div>\n\n      <div class= "welcome-hands">\n        <img class="hands" src="./" >\n        <img class="hands" src="./" >\n        <img class="hands" src="./" >\n      </div>\n      \n        `;
-        const button = document.querySelector(".welcome-button");
+        const imagePaper = require("../../images/papel.png");
+        const imageRock = require("../../images/piedra.png");
+        const imageScissors = require("../../images/tijera.png");
+        // const imageBackground = require("../../images/fondo.png");
+        div.innerHTML = `\n      <div class= "welcome">\n        <h1 class="welcome-title">Piedra Papel ó Tijera</h1>\n        <button class="welcome-button">Empezar</button>\n      </div>\n\n      <div class= "welcome-hands">\n        <img class="imagePaper" src="${imagePaper}" >\n        <img class="imageRock" src="${imageRock}" >\n        <img class="imageScissors" src="${imageScissors}" >\n      </div>\n      \n        `;
+        const button = div.querySelector(".welcome-button");
         button?.addEventListener("click", (e)=>{
+            //*TODO: Cargar los datos del router para cambiar a la page de Inicio
+            e.preventDefault();
             console.log("Componente Welcome funcionando");
         });
         this.shadow.appendChild(div);
     }
 });
 
-},{}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
+},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb"}],"7qzPh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "papel.9ec305e9.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"2w6yi":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra.e43534e7.png";
+
+},{"./helpers/bundle-url":"8YnfL"}],"payHb":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "tijera.3bf0f0ea.png";
+
+},{"./helpers/bundle-url":"8YnfL"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
 
 //# sourceMappingURL=index.b31310b1.js.map

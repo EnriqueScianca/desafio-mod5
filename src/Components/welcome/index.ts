@@ -13,10 +13,20 @@ customElements.define(
 
       const style = document.createElement("style");
       style.innerHTML = `
+
+      .welcome{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
       .welcome-title{
         font-family: 'Odibee Sans', cursive;
         color: #009048;
         font-size: 80px;
+        text-align: center;
+        padding: 40px;
+        margin: 0px;
       }
 
       .welcome-button{
@@ -29,6 +39,19 @@ customElements.define(
         height: 60px;
       }
 
+      // .welcome-hands{
+      //   position: fixed;
+      //   bottom: -26px;
+      //   margin-left: 12%
+      // }
+
+      .welcome-hands{
+        position: absolute;
+        left: 13%;
+        right: 0%;
+        top: 82%;
+      }
+
       //*TODO: Agregamos los estilos del div
       `;
 
@@ -38,6 +61,11 @@ customElements.define(
 
     render() {
       const div = document.createElement("div");
+      const imagePaper = require("../../images/papel.png");
+      const imageRock = require("../../images/piedra.png");
+      const imageScissors = require("../../images/tijera.png");
+      // const imageBackground = require("../../images/fondo.png");
+
       div.innerHTML = `
       <div class= "welcome">
         <h1 class="welcome-title">Piedra Papel ó Tijera</h1>
@@ -45,14 +73,17 @@ customElements.define(
       </div>
 
       <div class= "welcome-hands">
-        <img class="hands" src="./" >
-        <img class="hands" src="./" >
-        <img class="hands" src="./" >
+        <img class="imagePaper" src="${imagePaper}" >
+        <img class="imageRock" src="${imageRock}" >
+        <img class="imageScissors" src="${imageScissors}" >
       </div>
       
         `;
-      const button = document.querySelector(".welcome-button");
+      const button = div.querySelector(".welcome-button");
       button?.addEventListener("click", (e) => {
+        //*TODO: Cargar los datos del router para cambiar a la page de Inicio
+
+        e.preventDefault();
         console.log("Componente Welcome funcionando");
       });
 
