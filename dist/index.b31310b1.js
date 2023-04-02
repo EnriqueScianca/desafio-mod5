@@ -456,12 +456,13 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"4aleK":[function(require,module,exports) {
 var _welcome = require("./Components/welcome");
+var _instructions = require("./Components/instructions");
 function main() {
     console.log("Hola mundo");
 }
 main();
 
-},{"./Components/welcome":"6g59z"}],"6g59z":[function(require,module,exports) {
+},{"./Components/welcome":"6g59z","./Components/instructions":"fE0qX"}],"6g59z":[function(require,module,exports) {
 customElements.define("welcome-page", class extends HTMLElement {
     constructor(){
         super();
@@ -472,7 +473,7 @@ customElements.define("welcome-page", class extends HTMLElement {
     connectedCallback() {
         // *TODO: Aca creo que va la accion de que hace cuando hacemos click en empezar.
         const style = document.createElement("style");
-        style.innerHTML = `\n\n      .welcome{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n      }\n      \n      .welcome-title{\n        font-family: 'Odibee Sans', cursive;\n        color: #009048;\n        font-size: 80px;\n        text-align: center;\n        padding: 40px;\n        margin: 0px;\n      }\n\n      .welcome-button{\n        font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n      }\n\n      // .welcome-hands{\n      //   position: fixed;\n      //   bottom: -26px;\n      //   margin-left: 12%\n      // }\n\n      .welcome-hands{\n        position: absolute;\n        left: 13%;\n        right: 0%;\n        top: 82%;\n      }\n\n      //*TODO: Agregamos los estilos del div\n      `;
+        style.innerHTML = `\n\n      .welcome{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n      }\n      \n      .welcome-title{\n        font-family: 'Odibee Sans', cursive;\n        color: #009048;\n        font-size: 80px;\n        text-align: center;\n        padding: 40px;\n        margin: 0px;\n      }\n\n      .welcome-button{\n        font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n      }\n\n      // .welcome-hands{\n      //   position: fixed;\n      //   bottom: -26px;\n      //   margin-left: 12%\n      // }\n\n      .welcome-hands{\n        position: absolute;\n        left: 13%;\n        right: 0%;\n        // top: 82%;\n        top: 77%;\n      }\n      `;
         this.shadow.appendChild(style);
         this.render();
     }
@@ -537,6 +538,35 @@ module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra
 },{"./helpers/bundle-url":"8YnfL"}],"payHb":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "tijera.3bf0f0ea.png";
 
-},{"./helpers/bundle-url":"8YnfL"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
+},{"./helpers/bundle-url":"8YnfL"}],"fE0qX":[function(require,module,exports) {
+customElements.define("instruction-page", class extends HTMLElement {
+    constructor(){
+        super();
+        this.shadow = this.attachShadow({
+            mode: "open"
+        });
+    }
+    connectedCallback() {
+        const style = document.createElement("style");
+        style.innerHTML = `\n        .container{\n          display: flex;\n          flex-direction: column;\n          align-items: center;\n        }\n        \n        .container-title{\n          font-family: 'Odibee Sans', cursive;\n          color: #000000;          \n          font-size: 40px;\n          text-align: center;\n          padding: 40px;\n          // margin: 0px;\n\n        }\n\n        .container-button{\n          font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n        margin-top: 25px;\n        }\n\n        .welcome-hands{\n          position: absolute;\n          left: 13%;\n          right: 0%;\n          top: 77%;\n        } \n      `;
+        this.shadow.appendChild(style);
+        this.render();
+    }
+    render() {
+        const div = document.createElement("div");
+        const imagePaper = require("../../images/papel.png");
+        const imageRock = require("../../images/piedra.png");
+        const imageScissors = require("../../images/tijera.png");
+        div.innerHTML = `\n        <div class= "container">\n          <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>\n          <button class= "container-button">Empezar</button>\n        </div>\n\n        <div class= "welcome-hands">\n        <img class="imagePaper" src="${imagePaper}" >\n        <img class="imageRock" src="${imageRock}" >\n        <img class="imageScissors" src="${imageScissors}" >\n      </div>\n      `;
+        const button = div.querySelector(".container-button");
+        button?.addEventListener("click", (e)=>{
+            e.preventDefault();
+            console.log("Componente Instruction funcionando");
+        });
+        this.shadow.appendChild(div);
+    }
+});
+
+},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
 
 //# sourceMappingURL=index.b31310b1.js.map

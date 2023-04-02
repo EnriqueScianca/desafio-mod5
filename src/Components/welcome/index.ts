@@ -49,10 +49,9 @@ customElements.define(
         position: absolute;
         left: 13%;
         right: 0%;
-        top: 82%;
+        // top: 82%;
+        top: 77%;
       }
-
-      //*TODO: Agregamos los estilos del div
       `;
 
       this.shadow.appendChild(style);
