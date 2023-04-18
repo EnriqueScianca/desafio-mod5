@@ -455,91 +455,19 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"4aleK":[function(require,module,exports) {
+// Router
+var _router = require("./router");
+// Componentes
 var _welcome = require("./Components/welcome");
-var _instructions = require("./Components/instructions");
+var _button = require("./Components/button");
 function main() {
-    console.log("Hola mundo");
+    // console.log("Hola mundo");
+    const contenedor = document.querySelector(".contenedor");
+    _router.routerDirection(contenedor);
 }
 main();
 
-},{"./Components/welcome":"6g59z","./Components/instructions":"fE0qX"}],"6g59z":[function(require,module,exports) {
-// customElements.define(
-//   "welcome-page",
-//   class extends HTMLElement {
-//     shadow: ShadowRoot;
-//     constructor() {
-//       super();
-//       this.shadow = this.attachShadow({ mode: "open" });
-//     }
-//     connectedCallback() {
-//       // *TODO: Aca creo que va la accion de que hace cuando hacemos click en empezar.
-//       const style = document.createElement("style");
-//       style.innerHTML = `
-//       .welcome{
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//       }
-//       .welcome-title{
-//         font-family: 'Odibee Sans', cursive;
-//         color: #009048;
-//         font-size: 80px;
-//         text-align: center;
-//         padding: 40px;
-//         margin: 0px;
-//       }
-//       .welcome-button{
-//         font-family: 'Odibee Sans', cursive;
-//         border: 3px solid #001997;
-//         background-color: #006CFC;
-//         color: #D8FCFC;
-//         font-size: 45px;
-//         width: 260px;
-//         height: 60px;
-//       }
-//       // .welcome-hands{
-//       //   position: fixed;
-//       //   bottom: -26px;
-//       //   margin-left: 12%
-//       // }
-//       .welcome-hands{
-//         position: absolute;
-//         left: 13%;
-//         right: 0%;
-//         // top: 82%;
-//         top: 77%;
-//       }
-//       `;
-//       this.shadow.appendChild(style);
-//       this.render();
-//     }
-//     render() {
-//       const div = document.createElement("div");
-//       const imagePaper = require("../../images/papel.png");
-//       const imageRock = require("../../images/piedra.png");
-//       const imageScissors = require("../../images/tijera.png");
-//       // const imageBackground = require("../../images/fondo.png");
-//       div.innerHTML = `
-//       <div class= "welcome">
-//         <h1 class="welcome-title">Piedra Papel ó Tijera</h1>
-//         <button class="welcome-button">Empezar</button>
-//       </div>
-//       <div class= "welcome-hands">
-//         <img class="imagePaper" src="${imagePaper}" >
-//         <img class="imageRock" src="${imageRock}" >
-//         <img class="imageScissors" src="${imageScissors}" >
-//       </div>
-//         `;
-//       const button = div.querySelector(".welcome-button");
-//       button?.addEventListener("click", (e) => {
-//         //*TODO: Cargar los datos del router para cambiar a la page de Inicio
-//         e.preventDefault();
-//         console.log("Componente Welcome funcionando");
-//       });
-//       this.shadow.appendChild(div);
-//     }
-//   }
-// );
+},{"./Components/welcome":"6g59z","./Components/button":"6AA9a","./router":"b2iia"}],"6g59z":[function(require,module,exports) {
 customElements.define("welcome-page", class extends HTMLElement {
     constructor(){
         super();
@@ -614,76 +542,8 @@ module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra
 },{"./helpers/bundle-url":"8YnfL"}],"payHb":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "tijera.3bf0f0ea.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"fE0qX":[function(require,module,exports) {
-// customElements.define(
-//   "instruction-page",
-//   class extends HTMLElement {
-//     shadow: ShadowRoot;
-//     constructor() {
-//       super();
-//       this.shadow = this.attachShadow({ mode: "open" });
-//     }
-//     connectedCallback() {
-//       const style = document.createElement("style");
-//       style.innerHTML = `
-//         .container{
-//           display: flex;
-//           flex-direction: column;
-//           align-items: center;
-//         }
-//         .container-title{
-//           font-family: 'Odibee Sans', cursive;
-//           color: #000000;
-//           font-size: 40px;
-//           text-align: center;
-//           padding: 40px;
-//           // margin: 0px;
-//         }
-//         .container-button{
-//           font-family: 'Odibee Sans', cursive;
-//         border: 3px solid #001997;
-//         background-color: #006CFC;
-//         color: #D8FCFC;
-//         font-size: 45px;
-//         width: 260px;
-//         height: 60px;
-//         margin-top: 25px;
-//         }
-//         .welcome-hands{
-//           position: absolute;
-//           left: 13%;
-//           right: 0%;
-//           top: 77%;
-//         }
-//       `;
-//       this.shadow.appendChild(style);
-//       this.render();
-//     }
-//     render() {
-//       const div = document.createElement("div");
-//       const imagePaper = require("../../images/papel.png");
-//       const imageRock = require("../../images/piedra.png");
-//       const imageScissors = require("../../images/tijera.png");
-//       div.innerHTML = `
-//         <div class= "container">
-//           <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>
-//           <button class= "container-button">Empezar</button>
-//         </div>
-//         <div class= "welcome-hands">
-//         <img class="imagePaper" src="${imagePaper}" >
-//         <img class="imageRock" src="${imageRock}" >
-//         <img class="imageScissors" src="${imageScissors}" >
-//       </div>
-//       `;
-//       const button = div.querySelector(".container-button");
-//       button?.addEventListener("click", (e) => {
-//         e.preventDefault();
-//         console.log("Componente Instruction funcionando");
-//       });
-//       this.shadow.appendChild(div);
-//     }
-//   }
-// );
+},{"./helpers/bundle-url":"8YnfL"}],"6AA9a":[function(require,module,exports) {
+//TODO: ELIMINAR TODO Y HACER COMPONENTE SOLO EL BOTON PARA INYECTAR EN LAS PAGE CORRESPONDIENTES (POR AHORA EN INSTRUCTIONS)
 customElements.define("instruction-page", class extends HTMLElement {
     constructor(){
         super();
@@ -714,6 +574,114 @@ customElements.define("instruction-page", class extends HTMLElement {
     }
 });
 
-},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
+},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb"}],"b2iia":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// export function handleRoute(route) {
+//   for (const r of routes) {
+//     if (r.path.test(route)) {
+//       // const el = r.handler({ goTo: goTo });
+//       const container = document.querySelector(".contnet");
+//       // Se puede usar la variable contaienr o crear otra function y pasarle el container por parametro
+//       const el = r.handler();
+//       if (container?.firstChild) {
+//         container.firstChild.remove();
+//       }
+//       container?.appendChild(el);
+//     }
+//   }
+// }
+parcelHelpers.export(exports, "routerDirection", ()=>routerDirection
+);
+var _instructions = require("./Pages/instructions");
+const routes = [
+    {
+        path: /\/instructions/,
+        handler: _instructions.instructionsPage
+    },
+    {
+        path: /\/welcome/,
+        handler: _instructions.instructionsPage
+    },
+    {
+        path: /\/jugada/,
+        handler: _instructions.instructionsPage
+    }, 
+];
+function routerDirection(container) {
+    if (location.pathname == "/desafio-final/") goTo("/desafio-final/welcome");
+    if (location.pathname == "/") goTo("/welcome");
+    function goTo(path) {
+        history.pushState({
+        }, "", path);
+        handleRoute(path);
+    }
+    function handleRoute(route) {
+        for (const r of routes)if (r.path.test(route)) {
+            const el = r.handler();
+            if (container.firstChild) container.firstChild.remove();
+            container.appendChild(el);
+        }
+    }
+    handleRoute(location.pathname);
+}
+
+},{"./Pages/instructions":"4vhVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"4vhVd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// export function instructionsPage(params) {
+parcelHelpers.export(exports, "instructionsPage", ()=>instructionsPage
+);
+function instructionsPage() {
+    const div = document.createElement("div");
+    const style = document.createElement("style");
+    const imagePaper = require("../../images/papel.png");
+    const imageRock = require("../../images/piedra.png");
+    const imageScissors = require("../../images/tijera.png");
+    div.innerHTML = `\n    <div class= "container">\n      <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>\n      <button class= "container-button">Empezar</button>\n    </div>\n\n    <div class= "welcome-hands">\n      <img class="imagePaper" src="${imagePaper}" >\n      <img class="imageRock" src="${imageRock}" >\n      <img class="imageScissors" src="${imageScissors}" >\n    </div>\n  `;
+    style.textContent = `\n  .container{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n  }\n\n  .container-title{\n    font-family: 'Odibee Sans', cursive;\n    color: #000000;\n    font-size: 40px;\n    text-align: center;\n    padding: 40px;\n    // margin: 0px;\n\n  }\n\n  .container-button{\n    font-family: 'Odibee Sans', cursive;\n    border: 3px solid #001997;\n    background-color: #006CFC;\n    color: #D8FCFC;\n    font-size: 45px;\n    width: 260px;\n    height: 60px;\n    margin-top: 25px;\n  }\n\n  .welcome-hands{\n    position: absolute;\n    left: 13%;\n    right: 0%;\n    top: 77%;\n  } \n\n  //TODO: RESPONSIVE\n\n\n  `;
+    const btn = div.querySelector(".container-button");
+    btn?.addEventListener("click", (e)=>{
+        e.preventDefault();
+        console.log("Boton Empezar funcionando correctamente");
+    });
+    console.log("Page instruction funcionando correctamente");
+    div.appendChild(style);
+    return div;
+}
+
+},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"JacNc":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule') return;
+        // Skip duplicate re-exports when they have the same value.
+        if (key in dest && dest[key] === source[key]) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
 
 //# sourceMappingURL=index.b31310b1.js.map
