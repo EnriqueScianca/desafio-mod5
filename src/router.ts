@@ -1,4 +1,5 @@
 import { instructionsPage } from "./Pages/instructions";
+import { welcomePage } from "./Pages/welcome";
 
 const routes = [
   {
@@ -7,7 +8,7 @@ const routes = [
   },
   {
     path: /\/welcome/,
-    handler: instructionsPage,
+    handler: welcomePage,
   },
   {
     path: /\/jugada/,

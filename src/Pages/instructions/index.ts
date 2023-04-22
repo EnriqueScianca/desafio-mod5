@@ -7,10 +7,12 @@ export function instructionsPage() {
   const imageRock = require("../../images/piedra.png");
   const imageScissors = require("../../images/tijera.png");
 
+  // <button class= "container-button">Empezar</button>
+
   div.innerHTML = `
     <div class= "container">
       <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>
-      <button class= "container-button">Empezar</button>
+      <button-comp text="Jugar" class = "btn"></button-comp>
     </div>
 
     <div class= "welcome-hands">
@@ -59,15 +61,13 @@ export function instructionsPage() {
 
 
   `;
-
-  const btn = div.querySelector(".container-button");
-
+  // const btn = div.querySelector(".container-button");
+  const btn = div.querySelector(".btn");
   btn?.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log("Boton Empezar funcionando correctamente");
+    console.log("Boton Jugar funcionando correctamente");
   });
 
-  console.log("Page instruction funcionando correctamente");
   div.appendChild(style);
   return div;
 }

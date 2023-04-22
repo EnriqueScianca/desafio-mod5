@@ -468,37 +468,108 @@ function main() {
 main();
 
 },{"./Components/welcome":"6g59z","./Components/button":"6AA9a","./router":"b2iia"}],"6g59z":[function(require,module,exports) {
-customElements.define("welcome-page", class extends HTMLElement {
+
+},{}],"6AA9a":[function(require,module,exports) {
+//TODO: ELIMINAR TODO Y HACER COMPONENTE SOLO EL BOTON PARA INYECTAR EN LAS PAGE CORRESPONDIENTES (POR AHORA EN INSTRUCTIONS)
+customElements.define("button-comp", class extends HTMLElement {
     constructor(){
         super();
+        // shadow: ShadowRoot
         this.shadow = this.attachShadow({
             mode: "open"
         });
         this.render();
     }
-    connectedCallback() {
-        //TODO: Funcionamiento del boton en interaccion con el state y el router
-        const button = this.shadow.querySelector(".welcome-button");
-        button?.addEventListener("click", (e)=>{
-            e.preventDefault();
-            console.log("Componente Welcome funcionando");
-        });
-    }
     render() {
         const div = document.createElement("div");
-        const imagePaper = require("../../images/papel.png");
-        const imageRock = require("../../images/piedra.png");
-        const imageScissors = require("../../images/tijera.png");
-        // const imageBackground = require("../../images/fondo.png");
-        div.innerHTML = `\n      <div class= "welcome">\n        <h1 class="welcome-title">Piedra Papel ó Tijera</h1>\n        <button class="welcome-button">Empezar</button>\n      </div>\n\n      <div class= "welcome-hands">\n        <img class="imagePaper" src="${imagePaper}" >\n        <img class="imageRock" src="${imageRock}" >\n        <img class="imageScissors" src="${imageScissors}" >\n      </div>\n      \n        `;
-        this.shadow.appendChild(div);
         const style = document.createElement("style");
-        style.innerHTML = `\n\n      .welcome{\n        display: flex;\n        flex-direction: column;\n        align-items: center;\n      }\n      \n      .welcome-title{\n        font-family: 'Odibee Sans', cursive;\n        color: #009048;\n        font-size: 80px;\n        text-align: center;\n        padding: 40px;\n        margin: 0px;\n      }\n\n      .welcome-button{\n        font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n      }\n\n      // .welcome-hands{\n      //   position: fixed;\n      //   bottom: -26px;\n      //   margin-left: 12%\n      // }\n\n      .welcome-hands{\n        position: absolute;\n        left: 13%;\n        right: 0%;\n        // top: 82%;\n        top: 77%;\n      }\n      `;
+        style.innerHTML = `\n        .container-button{\n          font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n        margin-top: 25px;\n        }\n      `;
         this.shadow.appendChild(style);
+        const text = this.getAttribute("text");
+        div.innerHTML = `\n        <div class= "container">\n          <button class= "container-button">${text}</button>\n        </div>\n\n      `;
+        this.shadow.appendChild(div);
     }
 });
 
-},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb"}],"7qzPh":[function(require,module,exports) {
+},{}],"b2iia":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// export function handleRoute(route) {
+//   for (const r of routes) {
+//     if (r.path.test(route)) {
+//       // const el = r.handler({ goTo: goTo });
+//       const container = document.querySelector(".contnet");
+//       // Se puede usar la variable contaienr o crear otra function y pasarle el container por parametro
+//       const el = r.handler();
+//       if (container?.firstChild) {
+//         container.firstChild.remove();
+//       }
+//       container?.appendChild(el);
+//     }
+//   }
+// }
+parcelHelpers.export(exports, "routerDirection", ()=>routerDirection
+);
+var _instructions = require("./Pages/instructions");
+var _welcome = require("./Pages/welcome");
+const routes = [
+    {
+        path: /\/instructions/,
+        handler: _instructions.instructionsPage
+    },
+    {
+        path: /\/welcome/,
+        handler: _welcome.welcomePage
+    },
+    {
+        path: /\/jugada/,
+        handler: _instructions.instructionsPage
+    }, 
+];
+function routerDirection(container) {
+    if (location.pathname == "/desafio-final/") goTo("/desafio-final/welcome");
+    if (location.pathname == "/") goTo("/welcome");
+    function goTo(path) {
+        history.pushState({
+        }, "", path);
+        handleRoute(path);
+    }
+    function handleRoute(route) {
+        for (const r of routes)if (r.path.test(route)) {
+            const el = r.handler();
+            if (container.firstChild) container.firstChild.remove();
+            container.appendChild(el);
+        }
+    }
+    handleRoute(location.pathname);
+}
+
+},{"./Pages/instructions":"4vhVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","./Pages/welcome":"2AImO"}],"4vhVd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// export function instructionsPage(params) {
+parcelHelpers.export(exports, "instructionsPage", ()=>instructionsPage
+);
+function instructionsPage() {
+    const div = document.createElement("div");
+    const style = document.createElement("style");
+    const imagePaper = require("../../images/papel.png");
+    const imageRock = require("../../images/piedra.png");
+    const imageScissors = require("../../images/tijera.png");
+    // <button class= "container-button">Empezar</button>
+    div.innerHTML = `\n    <div class= "container">\n      <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>\n      <button-comp text="Jugar" class = "btn"></button-comp>\n    </div>\n\n    <div class= "welcome-hands">\n      <img class="imagePaper" src="${imagePaper}" >\n      <img class="imageRock" src="${imageRock}" >\n      <img class="imageScissors" src="${imageScissors}" >\n    </div>\n  `;
+    style.textContent = `\n  .container{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n  }\n\n  .container-title{\n    font-family: 'Odibee Sans', cursive;\n    color: #000000;\n    font-size: 40px;\n    text-align: center;\n    padding: 40px;\n    // margin: 0px;\n\n  }\n\n  .container-button{\n    font-family: 'Odibee Sans', cursive;\n    border: 3px solid #001997;\n    background-color: #006CFC;\n    color: #D8FCFC;\n    font-size: 45px;\n    width: 260px;\n    height: 60px;\n    margin-top: 25px;\n  }\n\n  .welcome-hands{\n    position: absolute;\n    left: 13%;\n    right: 0%;\n    top: 77%;\n  } \n\n  //TODO: RESPONSIVE\n\n\n  `;
+    // const btn = div.querySelector(".container-button");
+    const btn = div.querySelector(".btn");
+    btn?.addEventListener("click", (e)=>{
+        e.preventDefault();
+        console.log("Boton Jugar funcionando correctamente");
+    });
+    div.appendChild(style);
+    return div;
+}
+
+},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"7qzPh":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "papel.9ec305e9.png";
 
 },{"./helpers/bundle-url":"8YnfL"}],"8YnfL":[function(require,module,exports) {
@@ -542,115 +613,7 @@ module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "piedra
 },{"./helpers/bundle-url":"8YnfL"}],"payHb":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('Z8Pbo') + "tijera.3bf0f0ea.png";
 
-},{"./helpers/bundle-url":"8YnfL"}],"6AA9a":[function(require,module,exports) {
-//TODO: ELIMINAR TODO Y HACER COMPONENTE SOLO EL BOTON PARA INYECTAR EN LAS PAGE CORRESPONDIENTES (POR AHORA EN INSTRUCTIONS)
-customElements.define("instruction-page", class extends HTMLElement {
-    constructor(){
-        super();
-        // shadow: ShadowRoot
-        this.shadow = this.attachShadow({
-            mode: "open"
-        });
-        this.render();
-    }
-    connectedCallback() {
-        //TODO: Funcionamiento del boton en interaccion con el state y el router
-        const button = this.shadow.querySelector(".container-button");
-        button?.addEventListener("click", (e)=>{
-            e.preventDefault();
-            console.log("Componente Instruction funcionando");
-        });
-    }
-    render() {
-        const div = document.createElement("div");
-        const imagePaper = require("../../images/papel.png");
-        const imageRock = require("../../images/piedra.png");
-        const imageScissors = require("../../images/tijera.png");
-        const style = document.createElement("style");
-        style.innerHTML = `\n        .container{\n          display: flex;\n          flex-direction: column;\n          align-items: center;\n        }\n\n        .container-title{\n          font-family: 'Odibee Sans', cursive;\n          color: #000000;\n          font-size: 40px;\n          text-align: center;\n          padding: 40px;\n          // margin: 0px;\n\n        }\n\n        .container-button{\n          font-family: 'Odibee Sans', cursive;\n        border: 3px solid #001997;\n        background-color: #006CFC;\n        color: #D8FCFC;\n        font-size: 45px;\n        width: 260px;\n        height: 60px;\n        margin-top: 25px;\n        }\n\n        .welcome-hands{\n          position: absolute;\n          left: 13%;\n          right: 0%;\n          top: 77%;\n        }\n      `;
-        this.shadow.appendChild(style);
-        div.innerHTML = `\n        <div class= "container">\n          <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>\n          <button class= "container-button">Empezar</button>\n        </div>\n\n        <div class= "welcome-hands">\n        <img class="imagePaper" src="${imagePaper}" >\n        <img class="imageRock" src="${imageRock}" >\n        <img class="imageScissors" src="${imageScissors}" >\n      </div>\n      `;
-        this.shadow.appendChild(div);
-    }
-});
-
-},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb"}],"b2iia":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// export function handleRoute(route) {
-//   for (const r of routes) {
-//     if (r.path.test(route)) {
-//       // const el = r.handler({ goTo: goTo });
-//       const container = document.querySelector(".contnet");
-//       // Se puede usar la variable contaienr o crear otra function y pasarle el container por parametro
-//       const el = r.handler();
-//       if (container?.firstChild) {
-//         container.firstChild.remove();
-//       }
-//       container?.appendChild(el);
-//     }
-//   }
-// }
-parcelHelpers.export(exports, "routerDirection", ()=>routerDirection
-);
-var _instructions = require("./Pages/instructions");
-const routes = [
-    {
-        path: /\/instructions/,
-        handler: _instructions.instructionsPage
-    },
-    {
-        path: /\/welcome/,
-        handler: _instructions.instructionsPage
-    },
-    {
-        path: /\/jugada/,
-        handler: _instructions.instructionsPage
-    }, 
-];
-function routerDirection(container) {
-    if (location.pathname == "/desafio-final/") goTo("/desafio-final/welcome");
-    if (location.pathname == "/") goTo("/welcome");
-    function goTo(path) {
-        history.pushState({
-        }, "", path);
-        handleRoute(path);
-    }
-    function handleRoute(route) {
-        for (const r of routes)if (r.path.test(route)) {
-            const el = r.handler();
-            if (container.firstChild) container.firstChild.remove();
-            container.appendChild(el);
-        }
-    }
-    handleRoute(location.pathname);
-}
-
-},{"./Pages/instructions":"4vhVd","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"4vhVd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-// export function instructionsPage(params) {
-parcelHelpers.export(exports, "instructionsPage", ()=>instructionsPage
-);
-function instructionsPage() {
-    const div = document.createElement("div");
-    const style = document.createElement("style");
-    const imagePaper = require("../../images/papel.png");
-    const imageRock = require("../../images/piedra.png");
-    const imageScissors = require("../../images/tijera.png");
-    div.innerHTML = `\n    <div class= "container">\n      <h1 class="container-title">Presioná jugar y elegí: piedra papel o tijera antes de que pasen los 3 segundos.</h1>\n      <button class= "container-button">Empezar</button>\n    </div>\n\n    <div class= "welcome-hands">\n      <img class="imagePaper" src="${imagePaper}" >\n      <img class="imageRock" src="${imageRock}" >\n      <img class="imageScissors" src="${imageScissors}" >\n    </div>\n  `;
-    style.textContent = `\n  .container{\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n  }\n\n  .container-title{\n    font-family: 'Odibee Sans', cursive;\n    color: #000000;\n    font-size: 40px;\n    text-align: center;\n    padding: 40px;\n    // margin: 0px;\n\n  }\n\n  .container-button{\n    font-family: 'Odibee Sans', cursive;\n    border: 3px solid #001997;\n    background-color: #006CFC;\n    color: #D8FCFC;\n    font-size: 45px;\n    width: 260px;\n    height: 60px;\n    margin-top: 25px;\n  }\n\n  .welcome-hands{\n    position: absolute;\n    left: 13%;\n    right: 0%;\n    top: 77%;\n  } \n\n  //TODO: RESPONSIVE\n\n\n  `;
-    const btn = div.querySelector(".container-button");
-    btn?.addEventListener("click", (e)=>{
-        e.preventDefault();
-        console.log("Boton Empezar funcionando correctamente");
-    });
-    console.log("Page instruction funcionando correctamente");
-    div.appendChild(style);
-    return div;
-}
-
-},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}],"JacNc":[function(require,module,exports) {
+},{"./helpers/bundle-url":"8YnfL"}],"JacNc":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -682,6 +645,28 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
+},{}],"2AImO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "welcomePage", ()=>welcomePage
+);
+function welcomePage() {
+    const div = document.createElement("div");
+    const style = document.createElement("style");
+    const imagePaper = require("../../images/papel.png");
+    const imageRock = require("../../images/piedra.png");
+    const imageScissors = require("../../images/tijera.png");
+    div.innerHTML = `\n    <div class= "welcome">\n      <h1 class="welcome-title">Piedra Papel ó Tijera</h1>\n      <button-comp text="Empezar" class= "btn"></button-comp>\n    </div>\n\n    <div class= "welcome-hands">\n      <img class="imagePaper" src="${imagePaper}" >\n      <img class="imageRock" src="${imageRock}" >\n      <img class="imageScissors" src="${imageScissors}" >\n    </div>\n  `;
+    style.textContent = `\n    .welcome{\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n    \n    .welcome-title{\n      font-family: 'Odibee Sans', cursive;\n      color: #009048;\n      font-size: 80px;\n      text-align: center;\n      padding: 40px;\n      margin: 0px;\n    }\n\n    .welcome-button{\n      font-family: 'Odibee Sans', cursive;\n      border: 3px solid #001997;\n      background-color: #006CFC;\n      color: #D8FCFC;\n      font-size: 45px;\n      width: 260px;\n      height: 60px;\n    }\n\n    // .welcome-hands{\n    //   position: fixed;\n    //   bottom: -26px;\n    //   margin-left: 12%\n    // }\n\n    .welcome-hands{\n      position: absolute;\n      left: 13%;\n      right: 0%;\n      // top: 82%;\n      top: 77%;\n    }   \n  `;
+    const btn = div.querySelector(".btn");
+    btn?.addEventListener("click", (e)=>{
+        e.preventDefault();
+        console.log("Boton Empezar funcionando correctamente");
+    });
+    div.appendChild(style);
+    return div;
+}
+
+},{"../../images/papel.png":"7qzPh","../../images/piedra.png":"2w6yi","../../images/tijera.png":"payHb","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc"}]},["8uBhv","4aleK"], "4aleK", "parcelRequire93c5")
 
 //# sourceMappingURL=index.b31310b1.js.map
