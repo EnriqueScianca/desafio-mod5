@@ -1,5 +1,5 @@
 // export function instructionsPage(params) {
-export function instructionsPage() {
+export function instructionsPage(param) {
   const div = document.createElement("div");
   const style = document.createElement("style");
 
@@ -51,22 +51,25 @@ export function instructionsPage() {
   }
 
   .welcome-hands{
-    position: absolute;
+    position: fixed;
     left: 13%;
     right: 0%;
-    top: 77%;
+    top: 82%;
   } 
 
   //TODO: RESPONSIVE
 
 
   `;
-  // const btn = div.querySelector(".container-button");
+  
   const btn = div.querySelector(".btn");
-  btn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    console.log("Boton Jugar funcionando correctamente");
-  });
+  
+  btn.addEventListener('click', () =>{
+    const path = location.pathname
+    if(path == "/instructions") {
+      param.goTo("/jugada")
+    }
+  })
 
   div.appendChild(style);
   return div;

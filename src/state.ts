@@ -17,7 +17,6 @@ const state = {
 
   getState() {
     const currentState = localStorage.getItem("currentState");
-
     return JSON.parse(currentState!);
   },
 
@@ -31,24 +30,47 @@ const state = {
 
   setMove(move: Jugada) {
     const currentState = this.getState();
-
+    console.log("SOy el current state desde el state" , currentState)
     currentState.currentGame.myPlay = move;
     currentState.currentGame.computerPlay = this.computerPlayOption();
+    
+
     currentState.history.push(currentState.currentGame);
 
     //Seteo los datos en el localStorage
     localStorage.setItem("currentState", JSON.stringify(currentState));
-
+    
     for (let cb of this.listeners) {
       cb(currentState);
     }
   },
 
+
+
+
   computerPlayOption() {
     const options = ["piedra", "papel", "tijera"];
     const random = Math.floor(Math.random() * 3);
-
     return options[random];
+
+  },
+
+
+  setPlayComputer(){
+    const computerPlay = this.computerPlayOption()
+
+    const dataState = {
+      data: {
+        currentGame: {myPlay: "undefined", computerPlay: computerPlay},
+      },
+      history: [],
+      points: {
+        computer: 0,
+        player: 0
+      },
+    }
+
+    this.setState(dataState)
   },
 
   // pushToHistory(play: Game) {

@@ -1,4 +1,4 @@
-export function welcomePage() {
+export function welcomePage(param) {
   const div = document.createElement("div");
   const style = document.createElement("style");
 
@@ -52,19 +52,27 @@ export function welcomePage() {
     // }
 
     .welcome-hands{
-      position: absolute;
+      position: fixed;
       left: 13%;
       right: 0%;
-      // top: 82%;
-      top: 77%;
+      top: 82%;
+      // top: 77%;
     }   
   `;
 
   const btn = div.querySelector(".btn");
-  btn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    console.log("Boton Empezar funcionando correctamente");
-  });
+  // btn?.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  //   console.log("Boton Empezar funcionando correctamente");
+  // });
+
+  btn.addEventListener('click', () => {
+    const path = location.pathname
+    if(path == "/welcome"){
+      param.goTo("/instructions")
+    }
+  })
+
 
   div.appendChild(style);
   return div;

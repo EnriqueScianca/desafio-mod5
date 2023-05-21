@@ -1,5 +1,7 @@
 import { instructionsPage } from "./Pages/instructions";
 import { welcomePage } from "./Pages/welcome";
+import { playPage } from "./Pages/play";
+import { resultsPage } from "./Pages/resuts";
 
 const routes = [
   {
@@ -12,28 +14,19 @@ const routes = [
   },
   {
     path: /\/jugada/,
-    handler: instructionsPage,
+    handler: playPage,
+  },
+
+  {
+    path: /\/results/,
+    handler: resultsPage,
   },
 ];
 
-// export function handleRoute(route) {
-//   for (const r of routes) {
-//     if (r.path.test(route)) {
-//       // const el = r.handler({ goTo: goTo });
-//       const container = document.querySelector(".contnet");
-//       // Se puede usar la variable contaienr o crear otra function y pasarle el container por parametro
-//       const el = r.handler();
-//       if (container?.firstChild) {
-//         container.firstChild.remove();
-//       }
-//       container?.appendChild(el);
-//     }
-//   }
-// }
 
 export function routerDirection(container) {
-  if (location.pathname == "/desafio-final/") {
-    goTo("/desafio-final/welcome");
+  if (location.pathname == "/desafio-mod5/") {
+    goTo("/desafio-mod5/welcome");
   }
   if (location.pathname == "/") {
     goTo("/welcome");
@@ -47,7 +40,7 @@ export function routerDirection(container) {
   function handleRoute(route) {
     for (const r of routes) {
       if (r.path.test(route)) {
-        const el = r.handler();
+        const el = r.handler({goTo: goTo});
 
         if (container.firstChild) {
           container.firstChild.remove();
