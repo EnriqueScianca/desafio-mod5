@@ -23,7 +23,6 @@ const routes = [
   },
 ];
 
-
 export function routerDirection(container) {
   if (location.pathname == "/desafio-mod5/") {
     goTo("/desafio-mod5/welcome");
@@ -40,7 +39,7 @@ export function routerDirection(container) {
   function handleRoute(route) {
     for (const r of routes) {
       if (r.path.test(route)) {
-        const el = r.handler({goTo: goTo});
+        const el = r.handler({ goTo: goTo });
 
         if (container.firstChild) {
           container.firstChild.remove();
