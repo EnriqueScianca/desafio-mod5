@@ -1,35 +1,33 @@
 import { state } from "../../state";
 
-export function playPage(param){
+export function playPage(param) {
+  const div = document.createElement("div");
+  const style = document.createElement("style");
 
-    const div = document.createElement('div')
-    const style = document.createElement('style')
+  const imagePaper = require("../../images/papel.png");
+  const imageRock = require("../../images/piedra.png");
+  const imageScissors = require("../../images/tijera.png");
 
+  const initLocalState = state.getState();
 
-    const imagePaper = require("../../images/papel.png");
-    const imageRock = require("../../images/piedra.png");
-    const imageScissors = require("../../images/tijera.png");
+  if (
+    initLocalState == undefined ||
+    initLocalState == null ||
+    initLocalState == ""
+  ) {
+    const initialState = {
+      currentGame: { myPlay: "undefined", computerPlay: "undefined" },
+      history: [],
+      points: {
+        computer: 0,
+        player: 0,
+      },
+    };
 
+    state.setState(initialState);
+  }
 
-    const initLocalState = state.getState()
-
-    if(initLocalState == undefined || initLocalState == null || initLocalState == "") {
-        const initialState = {
-            currentGame: { myPlay: "undefined", computerPlay: "undefined"},
-            history: [],
-            points: {
-                computer: 0,
-                player: 0
-            }
-        }
-
-        state.setState(initialState)
-    }
-
-
-
-
-    div.innerHTML = `
+  div.innerHTML = `
         <div class= "player-hands">
             <img class="imagePaper"  id= "paperComputer" src="${imagePaper}" >
             <img class="imageRock" id= "rockComputer" src="${imageRock}" >
@@ -46,10 +44,9 @@ export function playPage(param){
         </div>
     
 
-  `
+  `;
 
-
-    style.textContent = `
+  style.textContent = `
         .hands{
             position: fixed;
             // top: 79%;
@@ -92,112 +89,105 @@ export function playPage(param){
             padding: 10px;
         }
 
-        `
-        const rock = div.querySelector("#rock")
-        const paper = div.querySelector("#paper")
-        const scissors = div.querySelector("#scissors")
+        `;
+  const rock = div.querySelector("#rock");
+  const paper = div.querySelector("#paper");
+  const scissors = div.querySelector("#scissors");
 
-        rock.addEventListener('click', () => {
-            console.log("Soy la piedra")
-            rock.classList.replace("desactive", "active")
-            paper.classList.replace("active", "desactive")
-            scissors.classList.replace("active", "desactive")
-        })
+  rock.addEventListener("click", () => {
+    // console.log("Soy la piedra")
+    rock.classList.replace("desactive", "active");
+    paper.classList.replace("active", "desactive");
+    scissors.classList.replace("active", "desactive");
+  });
 
-        paper.addEventListener('click', () => {
-            console.log("Soy el papel")
-            paper.classList.replace("desactive", "active")
-            rock.classList.replace("active", "desactive")
-            scissors.classList.replace("active", "desactive")
+  paper.addEventListener("click", () => {
+    // console.log("Soy el papel")
+    paper.classList.replace("desactive", "active");
+    rock.classList.replace("active", "desactive");
+    scissors.classList.replace("active", "desactive");
+  });
 
-        })
+  scissors.addEventListener("click", () => {
+    // console.log("Soy la tijera")
+    scissors.classList.replace("desactive", "active");
+    rock.classList.replace("active", "desactive");
+    paper.classList.replace("active", "desactive");
+  });
 
-        scissors.addEventListener('click', () => {
-            console.log("Soy la tijera")
-            scissors.classList.replace("desactive", "active")
-            rock.classList.replace("active", "desactive")
-            paper.classList.replace("active", "desactive")
+  const setMyPlay = setInterval(() => {
+    switch (rock.classList.contains("active")) {
+      case true:
+        state.setMove("piedra");
+        // console.log("La piedra es true")
+        break;
+      default:
+      // console.log("La piedra es false")
+    }
 
-        }) 
+    switch (paper.classList.contains("active")) {
+      case true:
+        state.setMove("papel");
+        // console.log("El papel es true")
+        break;
+      default:
+      // console.log("El papel es false")
+    }
 
-        const setMyPlay = setInterval(() => {
-            switch(rock.classList.contains('active')){
-                case true:
-                    state.setMove('piedra')
-                    console.log("La piedra es true")
-                    break
-                    default:
-                        console.log("La piedra es false")
-            }
+    switch (scissors.classList.contains("active")) {
+      case true:
+        state.setMove("tijera");
+        // console.log("La tijera es true")
+        break;
+      default:
+      // console.log("La tijera es false")
+    }
 
-            switch(paper.classList.contains('active')){
-                case true:
-                    state.setMove('papel')
-                    console.log("El papel es true")
-                    break
-                    default:
-                        console.log("El papel es false")
-            }
+    clearInterval(setMyPlay);
+  }, 4000);
 
-            switch(scissors.classList.contains('active')){
-                case true:
-                    state.setMove('tijera')
-                    console.log("La tijera es true")
-                    break
-                    default:
-                        console.log("La tijera es false")
-            }
+  const computerPlay = setInterval(() => {
+    const currentState = state.getState();
 
-            clearInterval(setMyPlay)
+    const computerRock = div.querySelector("#rockComputer");
+    const computerPaper = div.querySelector("#paperComputer");
+    const computerScissors = div.querySelector("#scissorsComputer");
 
-        }, 4000)
+    if (currentState.currentGame.computerPlay == "piedra") {
+      computerRock.classList.add("active");
+    } else {
+      computerRock.classList.add("desactive");
+    }
 
-        const computerPlay = setInterval(() => {
-            const currentState = state.getState()
+    if (currentState.currentGame.computerPlay == "papel") {
+      computerPaper.classList.add("active");
+    } else {
+      computerPaper.classList.add("desactive");
+    }
 
-            const computerRock = div.querySelector('#rockComputer')
-            const computerPaper = div.querySelector('#paperComputer')
-            const computerScissors = div.querySelector('#scissorsComputer')
+    if (currentState.currentGame.computerPlay == "tijera") {
+      computerScissors.classList.add("active");
+    } else {
+      computerScissors.classList.add("desactive");
+    }
 
+    clearInterval(computerPlay);
+  }, 4050);
 
-            if(currentState.currentGame.computerPlay == "piedra"){
-                computerRock.classList.add("active")
-            } else{
-                computerRock.classList.add("desactive")
-            }
+  //TODO: Redrieccionar a la pantalla de score y crear 1 boton que vaya resetee la jugada y 1 que vuelva a la pagina jugada.
 
-            if(currentState.currentGame.computerPlay == "papel"){
-                computerPaper.classList.add("active")
-            }else{
-                computerPaper.classList.add("desactive")
-            }
+  const redirectScore = setInterval(() => {
+    console.log("Redireccionando a la pantalla score");
 
-            if(currentState.currentGame.computerPlay == "tijera"){
-                computerScissors.classList.add("active")
-            }else{
-                computerScissors.classList.add("desactive")
-            }
+    const path = location.pathname;
 
-            clearInterval(computerPlay)
+    if (path == "/jugada") {
+      param.goTo("/results");
+    }
 
-        }, 4050)
+    clearInterval(redirectScore);
+  }, 5550);
 
-
-        //TODO: Redrieccionar a la pantalla de score y crear 1 boton que vaya resetee la jugada y 1 que vuelva a la pagina jugada.
-
-        const redirectScore = setInterval(() => {
-            console.log("Redireccionando a la pantalla score")
-
-            const path = location.pathname
-            
-            if(path == "/jugada"){
-                param.goTo("/results")
-            }
-
-            clearInterval(redirectScore)
-        }, 5550)
-
-
-    div.appendChild(style)
-    return div
+  div.appendChild(style);
+  return div;
 }

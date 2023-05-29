@@ -73,7 +73,7 @@ const state = {
   // },
 
   whoWins(myPlay: Jugada, computerPlay: Jugada) {
-    const ganoConPiedra = myPlay == "tijera" && computerPlay == "papel";
+    const ganoConPiedra = myPlay == "piedra" && computerPlay == "tijera";
     const ganoConPapel = myPlay == "papel" && computerPlay == "piedra";
     const ganoConTijera = myPlay == "tijera" && computerPlay == "papel";
 
@@ -81,7 +81,7 @@ const state = {
       true
     );
 
-    const ganaConPidra = computerPlay == "tijera" && myPlay == "papel";
+    const ganaConPidra = computerPlay == "piedra" && myPlay == "tijera";
     const ganaConPapel = computerPlay == "papel" && myPlay == "piedra";
     const ganaConTijera = computerPlay == "tijera" && myPlay == "papel";
 

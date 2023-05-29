@@ -5,14 +5,31 @@ export function resultsPage(param) {
 
   const div = document.createElement("div");
   const style = document.createElement("style");
+  const contenedor = document.querySelector(".contenedor");
 
-  const imageResultWin = require("../../images/resultado-ganaste.png");
-  const imageResultLoose = require("../../images/resultado-perdiste.png");
+  const imageResultWin = require("url:../../images/resultado-ganaste.png");
+  const imageResultLoose = require("url:../../images/resultado-perdiste.png");
 
-  //TODO: En la etiqueta P colocar con signo pesos y corchetes o como se llame que esta mi jugada en history y lo mismo con la jugada de la compu
+  var myPlayScore = 0;
+  var computerPlayScore = 0;
 
-  div.innerHTML = `
+  const currentState = state.getState();
 
+  //TODO: La linea 179 devuelve true o false segun quien gana o pierda. Habria que hacer un if que cuando retorne true sume un punto a mi variable myPlayScore++ o algo asi. Undefined es empate
+
+  const cs = currentState.history;
+
+  for (let play of cs) {
+    var win = state.whoWins(play.myPlay, play.computerPlay);
+    console.log(win, "soy el win");
+
+    if (win) {
+      console.log("GANASTE");
+      myPlayScore++;
+      contenedor.classList.add("colorWin");
+      contenedor.classList.replace("colorLoose", "colorWin");
+
+      div.innerHTML = `
 
     <div class="general">
       <div class="logo-result">
@@ -23,8 +40,8 @@ export function resultsPage(param) {
 
       <div class="score">
         <h1 class="scoreTitle">Score</h1>
-        <h2 class= "scoreVos">Vos:  1</h2>
-        <h2 class= "scoreMaquina">Máquina: 2</h2>
+        <h2 class= "scoreVos">Vos: ${myPlayScore}</h2>
+        <h2 class= "scoreMaquina">Máquina: ${computerPlayScore}</h2>
       </div>
 
       <div class="buttons">
@@ -42,6 +59,86 @@ export function resultsPage(param) {
 
 
         `;
+    }
+
+    if (contenedor.className == "colorWin") {
+      contenedor.classList.remove("colorLoose");
+    }
+
+    //TODO: VER POR QUE NO FUNCIONA CUANDO ENTRA AL FALSE
+
+    if (win == false) {
+      console.log("PERDISTE");
+      computerPlayScore++;
+      contenedor.classList.replace("colorWin", "colorLoose");
+
+      div.innerHTML = `
+
+      <div class="general">
+        <div class="logo-result">
+          <img src="${imageResultLoose}" class="win" alt="">
+        </div>
+
+
+      <div class="score">
+        <h1 class="scoreTitle">Score</h1>
+        <h2 class= "scoreVos">Vos: ${myPlayScore}</h2>
+        <h2 class= "scoreMaquina">Máquina: ${computerPlayScore}</h2>
+      </div>
+
+      <div class="buttons">
+        <button-comp class="boton-volver" text="Volver a jugar"></button-comp>
+        <button-comp class="boton-reset" text="Resetear Score"></button-comp>
+      </div> 
+    </div>
+
+    <div class="off poster-restart-score">
+    <div class="poster-quit">
+      <h2 class="quit">X</h2>
+    </div>
+    <h1 class="poster-message">¡Score Reseteado!</h1>
+  </div>
+
+
+        `;
+    }
+
+    if (win == undefined) {
+      console.log("PERDISTE");
+      contenedor.classList.add("colorLoose");
+      contenedor.classList.replace("colorWin", "colorLoose");
+
+      div.innerHTML = `
+
+      <div class="general">
+        <div class="logo-result">
+          <h1 class="empateTitle">EMPATE</h1>
+        </div>
+
+
+      <div class="score">
+        <h1 class="scoreTitle">Score</h1>
+        <h2 class= "scoreVos">Vos: ${myPlayScore}</h2>
+        <h2 class= "scoreMaquina">Máquina: ${computerPlayScore}</h2>
+      </div>
+
+      <div class="buttons">
+        <button-comp class="boton-volver" text="Volver a jugar"></button-comp>
+        <button-comp class="boton-reset" text="Resetear Score"></button-comp>
+      </div> 
+    </div>
+
+    <div class="off poster-restart-score">
+    <div class="poster-quit">
+      <h2 class="quit">X</h2>
+    </div>
+    <h1 class="poster-message">¡Score Reseteado!</h1>
+  </div>
+
+
+        `;
+    }
+  }
 
   style.textContent = `
 
@@ -49,8 +146,17 @@ export function resultsPage(param) {
             height: 100vh;
         }
 
-        div{
-            background-color: rgba(136, 137, 73, 0.9);;
+        .empateTitle{
+          font-family: 'Odibee Sans', cursive;
+          font-size: 45px;
+        }
+
+        .colorWin{
+          background-color: rgba(136, 137, 73, 0.9);
+        }
+
+        .colorLoose{
+          background-color: rgba(137, 73, 73, 0.9);
         }
 
         .logo-result{
@@ -111,12 +217,10 @@ export function resultsPage(param) {
         }
 
         .on{
-          transition: 1.5s;
           display: inherit;
         }
         
         .off{
-          transition: 1.5s;
           display: none;
         }
 
@@ -149,7 +253,7 @@ export function resultsPage(param) {
   botonReset.addEventListener("click", () => {
     //TODO: Aca deberia resetear el history. ¿Como?, solo dios y chatGPT lo saben.
     state.restartScore();
-    console.log("Score reseteado");
+    // console.log("Score reseteado");
     posterRestart.classList.replace("off", "on");
 
     if (posterRestart.classList.contains("on")) {
@@ -165,16 +269,24 @@ export function resultsPage(param) {
     }
   });
 
-  const myPlayScore = 0;
-  const computerPlayScore = 0;
+  // const myPlayScore = 0;
+  // const computerPlayScore = 0;
 
-  const currentState = state.getState();
+  // const currentState = state.getState();
 
-  const myPlayState = currentState.currentGame.myPlay;
-  const computerPlayState = currentState.currentGame.computerPlay;
+  // const myPlayState = currentState.currentGame.myPlay;
+  // const computerPlayState = currentState.currentGame.computerPlay;
 
-  //TODO: La linea 179 devuelve true o false segun quien gana o pierda. Habria que hacer un if que cuando retorne true sume un punto a mi variable myPlayScore++ o algo asi
-  console.log(state.whoWins(myPlayState, computerPlayState));
+  // //TODO: La linea 179 devuelve true o false segun quien gana o pierda. Habria que hacer un if que cuando retorne true sume un punto a mi variable myPlayScore++ o algo asi. Undefined es empate
+  // const stateWin = state.whoWins(myPlayState, computerPlayState);
+  // console.log(stateWin);
+
+  // if (stateWin == undefined) {
+  //   div.innerHTML = `
+  //     <h1>Es un empate wachin</h1>
+
+  //   `;
+  // }
 
   div.appendChild(style);
 

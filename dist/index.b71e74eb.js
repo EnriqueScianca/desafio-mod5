@@ -944,19 +944,19 @@ function playPage(param) {
     const paper = div.querySelector("#paper");
     const scissors = div.querySelector("#scissors");
     rock.addEventListener("click", ()=>{
-        console.log("Soy la piedra");
+        // console.log("Soy la piedra")
         rock.classList.replace("desactive", "active");
         paper.classList.replace("active", "desactive");
         scissors.classList.replace("active", "desactive");
     });
     paper.addEventListener("click", ()=>{
-        console.log("Soy el papel");
+        // console.log("Soy el papel")
         paper.classList.replace("desactive", "active");
         rock.classList.replace("active", "desactive");
         scissors.classList.replace("active", "desactive");
     });
     scissors.addEventListener("click", ()=>{
-        console.log("Soy la tijera");
+        // console.log("Soy la tijera")
         scissors.classList.replace("desactive", "active");
         rock.classList.replace("active", "desactive");
         paper.classList.replace("active", "desactive");
@@ -965,26 +965,20 @@ function playPage(param) {
         switch(rock.classList.contains("active")){
             case true:
                 (0, _state.state).setMove("piedra");
-                console.log("La piedra es true");
                 break;
             default:
-                console.log("La piedra es false");
         }
         switch(paper.classList.contains("active")){
             case true:
                 (0, _state.state).setMove("papel");
-                console.log("El papel es true");
                 break;
             default:
-                console.log("El papel es false");
         }
         switch(scissors.classList.contains("active")){
             case true:
                 (0, _state.state).setMove("tijera");
-                console.log("La tijera es true");
                 break;
             default:
-                console.log("La tijera es false");
         }
         clearInterval(setMyPlay);
     }, 4000);
@@ -1078,7 +1072,7 @@ const state = {
     //   currentState.history(play);
     // },
     whoWins (myPlay, computerPlay) {
-        const ganoConPiedra = myPlay == "tijera" && computerPlay == "papel";
+        const ganoConPiedra = myPlay == "piedra" && computerPlay == "tijera";
         const ganoConPapel = myPlay == "papel" && computerPlay == "piedra";
         const ganoConTijera = myPlay == "tijera" && computerPlay == "papel";
         const playerWin = [
@@ -1086,7 +1080,7 @@ const state = {
             ganoConPapel,
             ganoConTijera
         ].includes(true);
-        const ganaConPidra = computerPlay == "tijera" && myPlay == "papel";
+        const ganaConPidra = computerPlay == "piedra" && myPlay == "tijera";
         const ganaConPapel = computerPlay == "papel" && myPlay == "piedra";
         const ganaConTijera = computerPlay == "tijera" && myPlay == "papel";
         const computerWin = [
@@ -1114,11 +1108,23 @@ function resultsPage(param) {
     console.log("Soy la pagina results");
     const div = document.createElement("div");
     const style = document.createElement("style");
-    const imageResultWin = require("7d33a479f48f31e4");
-    const imageResultLoose = require("2583973a693bacd3");
-    //TODO: En la etiqueta P colocar con signo pesos y corchetes o como se llame que esta mi jugada en history y lo mismo con la jugada de la compu
-    div.innerHTML = `
-
+    const contenedor = document.querySelector(".contenedor");
+    const imageResultWin = require("7fb38f890df12675");
+    const imageResultLoose = require("c8f1b843c0ff7d85");
+    var myPlayScore = 0;
+    var computerPlayScore = 0;
+    const currentState = (0, _state.state).getState();
+    //TODO: La linea 179 devuelve true o false segun quien gana o pierda. Habria que hacer un if que cuando retorne true sume un punto a mi variable myPlayScore++ o algo asi. Undefined es empate
+    const cs = currentState.history;
+    for (let play of cs){
+        var win = (0, _state.state).whoWins(play.myPlay, play.computerPlay);
+        console.log(win, "soy el win");
+        if (win) {
+            console.log("GANASTE");
+            myPlayScore++;
+            contenedor.classList.add("colorWin");
+            contenedor.classList.replace("colorLoose", "colorWin");
+            div.innerHTML = `
 
     <div class="general">
       <div class="logo-result">
@@ -1129,8 +1135,8 @@ function resultsPage(param) {
 
       <div class="score">
         <h1 class="scoreTitle">Score</h1>
-        <h2 class= "scoreVos">Vos:  1</h2>
-        <h2 class= "scoreMaquina">Máquina: 2</h2>
+        <h2 class= "scoreVos">Vos: ${myPlayScore}</h2>
+        <h2 class= "scoreMaquina">Máquina: ${computerPlayScore}</h2>
       </div>
 
       <div class="buttons">
@@ -1148,14 +1154,95 @@ function resultsPage(param) {
 
 
         `;
+        }
+        if (contenedor.className == "colorWin") contenedor.classList.remove("colorLoose");
+        //TODO: VER POR QUE NO FUNCIONA CUANDO ENTRA AL FALSE
+        if (win == false) {
+            console.log("PERDISTE");
+            computerPlayScore++;
+            contenedor.classList.replace("colorWin", "colorLoose");
+            div.innerHTML = `
+
+      <div class="general">
+        <div class="logo-result">
+          <img src="${imageResultLoose}" class="win" alt="">
+        </div>
+
+
+      <div class="score">
+        <h1 class="scoreTitle">Score</h1>
+        <h2 class= "scoreVos">Vos: ${myPlayScore}</h2>
+        <h2 class= "scoreMaquina">Máquina: ${computerPlayScore}</h2>
+      </div>
+
+      <div class="buttons">
+        <button-comp class="boton-volver" text="Volver a jugar"></button-comp>
+        <button-comp class="boton-reset" text="Resetear Score"></button-comp>
+      </div> 
+    </div>
+
+    <div class="off poster-restart-score">
+    <div class="poster-quit">
+      <h2 class="quit">X</h2>
+    </div>
+    <h1 class="poster-message">¡Score Reseteado!</h1>
+  </div>
+
+
+        `;
+        }
+        if (win == undefined) {
+            console.log("PERDISTE");
+            contenedor.classList.add("colorLoose");
+            contenedor.classList.replace("colorWin", "colorLoose");
+            div.innerHTML = `
+
+      <div class="general">
+        <div class="logo-result">
+          <h1 class="empateTitle">EMPATE</h1>
+        </div>
+
+
+      <div class="score">
+        <h1 class="scoreTitle">Score</h1>
+        <h2 class= "scoreVos">Vos: ${myPlayScore}</h2>
+        <h2 class= "scoreMaquina">Máquina: ${computerPlayScore}</h2>
+      </div>
+
+      <div class="buttons">
+        <button-comp class="boton-volver" text="Volver a jugar"></button-comp>
+        <button-comp class="boton-reset" text="Resetear Score"></button-comp>
+      </div> 
+    </div>
+
+    <div class="off poster-restart-score">
+    <div class="poster-quit">
+      <h2 class="quit">X</h2>
+    </div>
+    <h1 class="poster-message">¡Score Reseteado!</h1>
+  </div>
+
+
+        `;
+        }
+    }
     style.textContent = `
 
         .contenedor{
             height: 100vh;
         }
 
-        div{
-            background-color: rgba(136, 137, 73, 0.9);;
+        .empateTitle{
+          font-family: 'Odibee Sans', cursive;
+          font-size: 45px;
+        }
+
+        .colorWin{
+          background-color: rgba(136, 137, 73, 0.9);
+        }
+
+        .colorLoose{
+          background-color: rgba(137, 73, 73, 0.9);
         }
 
         .logo-result{
@@ -1216,12 +1303,10 @@ function resultsPage(param) {
         }
 
         .on{
-          transition: 1.5s;
           display: inherit;
         }
         
         .off{
-          transition: 1.5s;
           display: none;
         }
 
@@ -1249,7 +1334,7 @@ function resultsPage(param) {
     botonReset.addEventListener("click", ()=>{
         //TODO: Aca deberia resetear el history. ¿Como?, solo dios y chatGPT lo saben.
         (0, _state.state).restartScore();
-        console.log("Score reseteado");
+        // console.log("Score reseteado");
         posterRestart.classList.replace("off", "on");
         if (posterRestart.classList.contains("on")) general.classList.add("opacityDiv");
     });
@@ -1258,24 +1343,30 @@ function resultsPage(param) {
         if (general.classList.contains("opacityDiv")) //Clase "f" no existe es solo para que no tenga efectos
         general.classList.replace("opacityDiv", "f");
     });
-    const myPlayScore = 0;
-    const computerPlayScore = 0;
-    const currentState = (0, _state.state).getState();
-    const myPlayState = currentState.currentGame.myPlay;
-    const computerPlayState = currentState.currentGame.computerPlay;
-    //TODO: La linea 179 devuelve true o false segun quien gana o pierda. Habria que hacer un if que cuando retorne true sume un punto a mi variable myPlayScore++ o algo asi
-    console.log((0, _state.state).whoWins(myPlayState, computerPlayState));
+    // const myPlayScore = 0;
+    // const computerPlayScore = 0;
+    // const currentState = state.getState();
+    // const myPlayState = currentState.currentGame.myPlay;
+    // const computerPlayState = currentState.currentGame.computerPlay;
+    // //TODO: La linea 179 devuelve true o false segun quien gana o pierda. Habria que hacer un if que cuando retorne true sume un punto a mi variable myPlayScore++ o algo asi. Undefined es empate
+    // const stateWin = state.whoWins(myPlayState, computerPlayState);
+    // console.log(stateWin);
+    // if (stateWin == undefined) {
+    //   div.innerHTML = `
+    //     <h1>Es un empate wachin</h1>
+    //   `;
+    // }
     div.appendChild(style);
     return div;
 }
 
-},{"../../state":"1Yeju","7d33a479f48f31e4":"gLKBa","2583973a693bacd3":"1YJVu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gLKBa":[function(require,module,exports) {
-module.exports = require("8bd4ef2dff3ae5ae").getBundleURL("7UhFu") + "resultado-ganaste.0920e897.png" + "?" + Date.now();
+},{"../../state":"1Yeju","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","7fb38f890df12675":"ejeHB","c8f1b843c0ff7d85":"6ChpK"}],"ejeHB":[function(require,module,exports) {
+module.exports = require("c11d4fa4071195b3").getBundleURL("7UhFu") + "resultado-ganaste.9e87dbde.png" + "?" + Date.now();
 
-},{"8bd4ef2dff3ae5ae":"lgJ39"}],"1YJVu":[function(require,module,exports) {
-module.exports = require("8189055a8d704da").getBundleURL("7UhFu") + "resultado-perdiste.a8f76a6e.png" + "?" + Date.now();
+},{"c11d4fa4071195b3":"lgJ39"}],"6ChpK":[function(require,module,exports) {
+module.exports = require("dbab4b38e4058f3c").getBundleURL("7UhFu") + "resultado-perdiste.c28269c7.png" + "?" + Date.now();
 
-},{"8189055a8d704da":"lgJ39"}],"7T1eJ":[function(require,module,exports) {
+},{"dbab4b38e4058f3c":"lgJ39"}],"7T1eJ":[function(require,module,exports) {
 // customElements.define(
 //   "welcome-page",
 //   class extends HTMLElement {
