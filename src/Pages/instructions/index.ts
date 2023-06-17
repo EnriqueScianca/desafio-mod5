@@ -39,6 +39,14 @@ export function instructionsPage(param) {
 
   }
 
+  @media(min-width: 768px){
+    .container-title{
+      max-width: 40vh;
+      font-size: 45px;
+      margin-top: 20vh;
+    }
+  }
+
   .container-button{
     font-family: 'Odibee Sans', cursive;
     border: 3px solid #001997;
@@ -57,19 +65,28 @@ export function instructionsPage(param) {
     top: 82%;
   } 
 
+  @media(min-width: 768px){
+    .welcome-hands{
+      position: fixed;
+      left: 43%;
+      right: 0%;
+      top: 85%;
+    }
+  }
+
   //TODO: RESPONSIVE
 
 
   `;
-  
+
   const btn = div.querySelector(".btn");
-  
-  btn.addEventListener('click', () =>{
-    const path = location.pathname
-    if(path == "/instructions") {
-      param.goTo("/jugada")
+
+  btn.addEventListener("click", () => {
+    const path = location.pathname;
+    if (path == "/instructions") {
+      param.goTo("/jugada");
     }
-  })
+  });
 
   div.appendChild(style);
   return div;

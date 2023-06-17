@@ -672,6 +672,14 @@ function instructionsPage(param) {
 
   }
 
+  @media(min-width: 768px){
+    .container-title{
+      max-width: 40vh;
+      font-size: 45px;
+      margin-top: 20vh;
+    }
+  }
+
   .container-button{
     font-family: 'Odibee Sans', cursive;
     border: 3px solid #001997;
@@ -689,6 +697,15 @@ function instructionsPage(param) {
     right: 0%;
     top: 82%;
   } 
+
+  @media(min-width: 768px){
+    .welcome-hands{
+      position: fixed;
+      left: 43%;
+      right: 0%;
+      top: 85%;
+    }
+  }
 
   //TODO: RESPONSIVE
 
@@ -815,21 +832,30 @@ function welcomePage(param) {
       margin: 0px;
     }
 
-    .welcome-button{
-      font-family: 'Odibee Sans', cursive;
-      border: 3px solid #001997;
-      background-color: #006CFC;
-      color: #D8FCFC;
-      font-size: 45px;
-      width: 260px;
-      height: 60px;
+    @media(min-width: 768px){
+      .welcome-title{
+        font-size: 80px;
+        margin-top: 15%;
+      }
     }
+
+    // .welcome-button{
+    //   font-family: 'Odibee Sans', cursive;
+    //   border: 3px solid #001997;
+    //   background-color: #006CFC;
+    //   color: #D8FCFC;
+    //   font-size: 45px;
+    //   width: 260px;
+    //   height: 60px;
+    // }
 
     // .welcome-hands{
     //   position: fixed;
     //   bottom: -26px;
     //   margin-left: 12%
     // }
+
+    
 
     .welcome-hands{
       position: fixed;
@@ -838,6 +864,15 @@ function welcomePage(param) {
       top: 82%;
       // top: 77%;
     }   
+
+    @media(min-width: 768px){
+      .welcome-hands{
+        position: fixed;
+        left: 43%;
+        right: 0%;
+        top: 85%;
+      }
+    }
   `;
     const btn = div.querySelector(".btn");
     // btn?.addEventListener("click", (e) => {
@@ -903,6 +938,16 @@ function playPage(param) {
             top: 82%;
             left:13%;
             right:0%;
+            cursor: pointer;
+        }
+
+        @media(min-width: 768px){
+          .hands{
+            position: fixed;
+            left: 43%;
+            right: 0%;
+            top: 85%;
+          }
         }
 
         // .hands{
@@ -924,6 +969,13 @@ function playPage(param) {
 
         }
 
+        @media(min-width: 768px){
+          .player-hands{
+            position: fixed;
+            left: 43%;
+          }
+        }
+
         .end{
             display: none;
         }
@@ -938,6 +990,8 @@ function playPage(param) {
             bottom: 25px;
             padding: 10px;
         }
+
+
 
         `;
     const rock = div.querySelector("#rock");
@@ -980,6 +1034,7 @@ function playPage(param) {
                 break;
             default:
         }
+        // Tiempo 4000
         clearInterval(setMyPlay);
     }, 4000);
     const computerPlay = setInterval(()=>{
@@ -993,6 +1048,7 @@ function playPage(param) {
         else computerPaper.classList.add("desactive");
         if (currentState.currentGame.computerPlay == "tijera") computerScissors.classList.add("active");
         else computerScissors.classList.add("desactive");
+        //Tiempo 4050
         clearInterval(computerPlay);
     }, 4050);
     //TODO: Redrieccionar a la pantalla de score y crear 1 boton que vaya resetee la jugada y 1 que vuelva a la pagina jugada.
@@ -1000,6 +1056,7 @@ function playPage(param) {
         console.log("Redireccionando a la pantalla score");
         const path = location.pathname;
         if (path == "/jugada") param.goTo("/results");
+        // Tiempo 5550
         clearInterval(redirectScore);
     }, 5550);
     div.appendChild(style);
@@ -1277,6 +1334,21 @@ function resultsPage(param) {
             background: white;
         }
 
+        @media(min-width: 768px){
+          .score{
+            margin: 60px;
+          }
+        }
+
+        @media(min-width: 768px){
+          .general{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
         h2{
             font-family: 'Odibee Sans', cursive;
             padding: 5px;
@@ -1302,6 +1374,14 @@ function resultsPage(param) {
           color: black;
         }
 
+
+        @media(min-width: 768px){
+          .poster-restart-score{
+            margin-left: 70vh;
+
+          }
+        }
+
         .on{
           display: inherit;
         }
@@ -1314,6 +1394,7 @@ function resultsPage(param) {
           text-align: end;
           margin-right: 15px;
           background: white;
+          cursor: pointer
         }
 
         .opacityDiv{
@@ -1467,6 +1548,15 @@ customElements.define("button-comp", class extends HTMLElement {
         width: 260px;
         height: 60px;
         margin-top: 25px;
+        cursor: pointer;
+        }
+
+        @media(min-width: 768px){
+          .container-button{
+            width: 336px;
+            height: 87px;
+            border-radius: 10px;
+          }
         }
       `;
         this.shadow.appendChild(style);
@@ -1515,6 +1605,17 @@ customElements.define("count-down", class extends HTMLElement {
                     justify-content: center;
                     align-items: center;
                     margin-top: 70%;
+                }
+
+                @media(min-width: 768px){
+                  .counter{
+                    font-family: 'Odibee Sans', cursive;
+                    font-size: 65px;
+                    display: flex;
+                    margin-top: 40vh;
+
+
+                  }
                 }
             `;
         this.shadow.appendChild(div);

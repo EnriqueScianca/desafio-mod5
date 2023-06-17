@@ -35,21 +35,30 @@ export function welcomePage(param) {
       margin: 0px;
     }
 
-    .welcome-button{
-      font-family: 'Odibee Sans', cursive;
-      border: 3px solid #001997;
-      background-color: #006CFC;
-      color: #D8FCFC;
-      font-size: 45px;
-      width: 260px;
-      height: 60px;
+    @media(min-width: 768px){
+      .welcome-title{
+        font-size: 80px;
+        margin-top: 15%;
+      }
     }
+
+    // .welcome-button{
+    //   font-family: 'Odibee Sans', cursive;
+    //   border: 3px solid #001997;
+    //   background-color: #006CFC;
+    //   color: #D8FCFC;
+    //   font-size: 45px;
+    //   width: 260px;
+    //   height: 60px;
+    // }
 
     // .welcome-hands{
     //   position: fixed;
     //   bottom: -26px;
     //   margin-left: 12%
     // }
+
+    
 
     .welcome-hands{
       position: fixed;
@@ -58,6 +67,15 @@ export function welcomePage(param) {
       top: 82%;
       // top: 77%;
     }   
+
+    @media(min-width: 768px){
+      .welcome-hands{
+        position: fixed;
+        left: 43%;
+        right: 0%;
+        top: 85%;
+      }
+    }
   `;
 
   const btn = div.querySelector(".btn");
@@ -66,13 +84,12 @@ export function welcomePage(param) {
   //   console.log("Boton Empezar funcionando correctamente");
   // });
 
-  btn.addEventListener('click', () => {
-    const path = location.pathname
-    if(path == "/welcome"){
-      param.goTo("/instructions")
+  btn.addEventListener("click", () => {
+    const path = location.pathname;
+    if (path == "/welcome") {
+      param.goTo("/instructions");
     }
-  })
-
+  });
 
   div.appendChild(style);
   return div;

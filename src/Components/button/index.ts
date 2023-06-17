@@ -24,6 +24,15 @@ customElements.define(
         width: 260px;
         height: 60px;
         margin-top: 25px;
+        cursor: pointer;
+        }
+
+        @media(min-width: 768px){
+          .container-button{
+            width: 336px;
+            height: 87px;
+            border-radius: 10px;
+          }
         }
       `;
 

@@ -191,6 +191,21 @@ export function resultsPage(param) {
             background: white;
         }
 
+        @media(min-width: 768px){
+          .score{
+            margin: 60px;
+          }
+        }
+
+        @media(min-width: 768px){
+          .general{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+
         h2{
             font-family: 'Odibee Sans', cursive;
             padding: 5px;
@@ -216,6 +231,14 @@ export function resultsPage(param) {
           color: black;
         }
 
+
+        @media(min-width: 768px){
+          .poster-restart-score{
+            margin-left: 70vh;
+
+          }
+        }
+
         .on{
           display: inherit;
         }
@@ -228,6 +251,7 @@ export function resultsPage(param) {
           text-align: end;
           margin-right: 15px;
           background: white;
+          cursor: pointer
         }
 
         .opacityDiv{

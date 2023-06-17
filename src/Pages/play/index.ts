@@ -53,6 +53,16 @@ export function playPage(param) {
             top: 82%;
             left:13%;
             right:0%;
+            cursor: pointer;
+        }
+
+        @media(min-width: 768px){
+          .hands{
+            position: fixed;
+            left: 43%;
+            right: 0%;
+            top: 85%;
+          }
         }
 
         // .hands{
@@ -74,6 +84,13 @@ export function playPage(param) {
 
         }
 
+        @media(min-width: 768px){
+          .player-hands{
+            position: fixed;
+            left: 43%;
+          }
+        }
+
         .end{
             display: none;
         }
@@ -88,6 +105,8 @@ export function playPage(param) {
             bottom: 25px;
             padding: 10px;
         }
+
+
 
         `;
   const rock = div.querySelector("#rock");
@@ -143,6 +162,7 @@ export function playPage(param) {
       // console.log("La tijera es false")
     }
 
+    // Tiempo 4000
     clearInterval(setMyPlay);
   }, 4000);
 
@@ -171,6 +191,7 @@ export function playPage(param) {
       computerScissors.classList.add("desactive");
     }
 
+    //Tiempo 4050
     clearInterval(computerPlay);
   }, 4050);
 
@@ -184,7 +205,7 @@ export function playPage(param) {
     if (path == "/jugada") {
       param.goTo("/results");
     }
-
+    // Tiempo 5550
     clearInterval(redirectScore);
   }, 5550);
 
