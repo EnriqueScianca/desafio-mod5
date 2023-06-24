@@ -8,10 +8,17 @@ const routes = [
     path: /\/instructions/,
     handler: instructionsPage,
   },
+
   {
     path: /\/welcome/,
     handler: welcomePage,
   },
+
+  {
+    path: /\/desafio-mod5\/welcome/,
+    handler: welcomePage,
+  },
+
   {
     path: /\/jugada/,
     handler: playPage,
