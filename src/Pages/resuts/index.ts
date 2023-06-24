@@ -103,7 +103,7 @@ export function resultsPage(param) {
         `;
     }
 
-    if (win == undefined) {
+    if (win == undefined || null) {
       console.log("PERDISTE");
       contenedor.classList.add("colorLoose");
       contenedor.classList.replace("colorWin", "colorLoose");
