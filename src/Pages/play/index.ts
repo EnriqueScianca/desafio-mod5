@@ -202,6 +202,10 @@ export function playPage(param) {
 
     const path = location.pathname;
 
+    if (path == "/desafio-mod5/jugada") {
+      param.goTo("/desafio-mod5/results");
+    }
+
     if (path == "/jugada") {
       param.goTo("/results");
     }

@@ -86,6 +86,9 @@ export function welcomePage(param) {
 
   btn.addEventListener("click", () => {
     const path = location.pathname;
+    if (path == "/desafio-mod5/welcome") {
+      param.goTo("/desafio-mod5/instructions");
+    }
     if (path == "/welcome") {
       param.goTo("/instructions");
     }

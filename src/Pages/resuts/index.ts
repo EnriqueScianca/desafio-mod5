@@ -269,6 +269,11 @@ export function resultsPage(param) {
 
   botonVolver.addEventListener("click", () => {
     const path = location.pathname;
+
+    if (path == "/desafio-mod5/results/") {
+      param.goTo("/desafio-mod5/jugada");
+    }
+
     if (path == "/results") {
       param.goTo("/jugada");
     }

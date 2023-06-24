@@ -10,6 +10,11 @@ const routes = [
   },
 
   {
+    path: /\/desafio-mod5\/instructions/,
+    handler: instructionsPage,
+  },
+
+  {
     path: /\/welcome/,
     handler: welcomePage,
   },
@@ -25,7 +30,17 @@ const routes = [
   },
 
   {
+    path: /\/desafio-mod5\/jugada/,
+    handler: playPage,
+  },
+
+  {
     path: /\/results/,
+    handler: resultsPage,
+  },
+
+  {
+    path: /\/desafio-mod5\/results/,
     handler: resultsPage,
   },
 ];

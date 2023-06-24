@@ -83,6 +83,11 @@ export function instructionsPage(param) {
 
   btn.addEventListener("click", () => {
     const path = location.pathname;
+
+    if (path == "/desafio-mod5/instructions") {
+      param.goTo("/desafio-mod5/jugada");
+    }
+
     if (path == "/instructions") {
       param.goTo("/jugada");
     }
