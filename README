@@ -1,0 +1,7 @@
+https://enriquescianca.github.io/desafio-mod5/
+
+Posiblemente si quieren correrlo con yarn no les va a funcionar (no se cual es el problema).
+
+Deben usar npm:
+
+En caso de correrlo en el localhost usar npm run dev.
