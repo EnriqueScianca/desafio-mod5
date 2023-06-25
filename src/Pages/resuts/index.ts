@@ -103,7 +103,7 @@ export function resultsPage(param) {
         `;
     }
 
-    if (win == undefined || null) {
+    if (win == undefined || win == null) {
       console.log("PERDISTE");
       contenedor.classList.add("colorLoose");
       contenedor.classList.replace("colorWin", "colorLoose");
@@ -112,7 +112,7 @@ export function resultsPage(param) {
 
       <div class="general">
         <div class="logo-result">
-          <h1 class="empateTitle">EMPATE</h1>
+          <h1 class="empateTitle">No hay ganadores</h1>
         </div>
 
 
@@ -270,7 +270,7 @@ export function resultsPage(param) {
   botonVolver.addEventListener("click", () => {
     const path = location.pathname;
 
-    if (path == "/desafio-mod5/results/") {
+    if (path == "/desafio-mod5/results") {
       param.goTo("/desafio-mod5/jugada");
     }
 
